@@ -14,7 +14,7 @@
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left" content-class="bg-grey-1" bordered>
       <q-list>
         <div class="drawer-item">
-          <q-btn outline color="accent" label="Welcome" />
+          <q-btn icon="favorite_border" outline color="accent" label="Welcome" />
         </div>
         <SectionLink
           v-for="link in sectionLinks"
@@ -84,7 +84,7 @@ export default {
 
 .drawer-item {
   min-width: 100%;
-  padding: 16px 8px;
+  padding: 18px 8px;
   display: flex;
   justify-content: center;
 }
