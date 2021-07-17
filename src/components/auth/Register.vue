@@ -25,14 +25,17 @@
 
     <q-toggle v-model="accept" label="I accept the license and terms" />
 
-    <div>
-      <q-btn label="Login" type="submit" color="primary"/>
+    <div class="row">
+      <q-space />
+      <q-btn label="Register" type="submit" color="primary"/>
       <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
     </div>
   </q-form>
 </template>
 
 <script>
+import { api } from 'boot/axios'
+
 export default {
   name: 'Register',
   data () {
@@ -44,21 +47,36 @@ export default {
   },
   methods: {
     onSubmit () {
+      const username = this.username
+      const password = this.password
+
       if (this.accept !== true) {
         this.$q.notify({
           color: 'red-5',
           textColor: 'white',
           icon: 'warning',
-          message: 'You need to accept the license and terms first'
+          message: 'You need to accept the license and terms first.'
         })
       }
-      else {
-        this.$q.notify({
-          color: 'green-4',
-          textColor: 'white',
-          icon: 'cloud_done',
-          message: 'Activation link sent to your email.'
-        })
+      else {     
+        this.$store
+          .dispatch('auth/register', {username, password}) 
+            .then(res => {
+              this.$q.notify({
+                color: 'green-4',
+                textColor: 'white',
+                icon: 'cloud_done',
+                message: `User ${username} created.`
+              })
+            })
+            .catch(() => {
+              this.$q.notify({
+                color: 'negative',
+                position: 'top',
+                message: 'Failed to create new user',
+                icon: 'report_problem'
+              })
+            })                      
       }
     },
 

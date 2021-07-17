@@ -23,9 +23,9 @@
       ]"
     />  
 
-    <div>
+    <div class="row">
+      <q-space />
       <q-btn label="Login" type="submit" color="primary"/>
-      <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
     </div>
   </q-form>
 </template>
@@ -41,6 +41,14 @@ export default {
   },
   methods: {
     onSubmit () {
+      const username = this.username
+      const password = this.password
+
+      this.$store.dispatch('auth/login', {
+        username,
+        password
+      })
+
       this.$q.notify({
         color: 'green-4',
         textColor: 'white',

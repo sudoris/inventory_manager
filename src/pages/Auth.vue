@@ -60,4 +60,10 @@ export default {
     min-width: 45%;
   }
 }
+
+@media screen and (min-width: 1264px) {
+  .login-wrapper {
+    min-width: 30%;
+  }
+}
 </style>

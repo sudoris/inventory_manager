@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex">
-    Hello inventory manager
+    Hello Index Page
   </q-page>
 </template>
 

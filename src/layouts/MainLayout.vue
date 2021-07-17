@@ -18,7 +18,7 @@
         </div>
         <SectionLink
           v-for="link in sectionLinks"
-          :key="link.title"
+          :key="link.to"
           v-bind="link"
         />
       </q-list>
@@ -38,17 +38,17 @@ const linksData = [
   {
     title: 'Inventory',
     icon: 'o_inventory',
-    link: '/'
+    to: '/inventory'
   },
   {
     title: 'Orders',
     icon: 'o_local_shipping',
-    link: '/'
+    to: '/orders'
   },
   {
     title: 'Reports',
     icon: 'o_assessment',
-    link: '/'
+    to: '/reports'
   }  
 ];
 
