@@ -44,17 +44,22 @@ export default {
       const username = this.username
       const password = this.password
 
-      this.$store.dispatch('auth/login', {
-        username,
-        password
-      })
-
-      this.$q.notify({
-        color: 'green-4',
-        textColor: 'white',
-        icon: 'cloud_done',
-        message: 'Logging in...'
-      })        
+      if (username && password) {
+        this.$store.dispatch('auth/login', {
+          username,
+          password
+        })
+          .then(res => {
+            this.$q.notify({
+              color: 'green-4',
+              textColor: 'white',
+              icon: 'cloud_done',
+              message: 'Logging in...'
+            })  
+          })
+      } else {
+        console.log('missing required params')         
+      }      
     },
 
     onReset () {

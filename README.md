@@ -1,6 +1,11 @@
 # Quasar App (inventory_manager)
 
-A Quasar Framework app
+Make sure that you have Node >=10 and NPM >=5 installed on your machine.
+
+## Install the Quasasr CLI
+```bash
+npm install -g @quasar/cli
+```
 
 ## Install the dependencies
 ```bash

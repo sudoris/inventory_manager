@@ -23,7 +23,7 @@
       ]"
     />  
 
-    <q-toggle v-model="accept" label="I accept the license and terms" />
+    <!-- <q-toggle v-model="accept" label="I accept the license and terms" /> -->
 
     <div class="row">
       <q-space />
@@ -42,7 +42,7 @@ export default {
     return {
       username: null,
       password: null,
-      accept: false
+      // accept: false
     }
   },
   methods: {
@@ -50,33 +50,26 @@ export default {
       const username = this.username
       const password = this.password
 
-      if (this.accept !== true) {
-        this.$q.notify({
-          color: 'red-5',
-          textColor: 'white',
-          icon: 'warning',
-          message: 'You need to accept the license and terms first.'
-        })
-      }
-      else {     
-        this.$store
-          .dispatch('auth/register', {username, password}) 
-            .then(res => {
-              this.$q.notify({
-                color: 'green-4',
-                textColor: 'white',
-                icon: 'cloud_done',
-                message: `User ${username} created.`
-              })
+      if (username && password) {
+        this.$store.dispatch('auth/register', {username, password}) 
+          .then(res => {
+            this.$q.notify({
+              color: 'green-4',
+              textColor: 'white',
+              icon: 'cloud_done',
+              message: `User ${username} created.`
             })
-            .catch(() => {
-              this.$q.notify({
-                color: 'negative',
-                position: 'top',
-                message: 'Failed to create new user',
-                icon: 'report_problem'
-              })
-            })                      
+          })
+          .catch(() => {
+            this.$q.notify({
+              color: 'negative',
+              position: 'top',
+              message: 'Failed to create new user',
+              icon: 'report_problem'
+            })
+          })   
+      } else {     
+        console.log('missing required params')            
       }
     },
 
