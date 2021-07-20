@@ -1,4 +1,5 @@
-export function setToken (state, token) {  
-  state.token = token
-  localStorage.setItem('inventory-manager-jwt', state.token)
+export function setAuth (state, auth) {  
+  console.log('token', auth)
+  state.auth = auth
+  localStorage.setItem('inventory-manager-jwt', state.auth.token)
 }

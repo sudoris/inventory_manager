@@ -54,8 +54,12 @@ export default {
               color: 'green-4',
               textColor: 'white',
               icon: 'cloud_done',
-              message: 'Logging in...'
-            })  
+              message: `Logged in as ${username}`
+            })                                           
+          })
+          .then(res => {
+            console.log(this.$route.query.from || '/')
+            this.$router.replace(this.$route.query.from || '/')
           })
       } else {
         console.log('missing required params')         
