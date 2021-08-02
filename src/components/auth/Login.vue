@@ -10,6 +10,7 @@
       label="Username or email *"      
       lazy-rules
       :rules="[ val => val && val.length > 0 || 'Please enter a valid username or email']"
+      autocomplete="current-password"
     />
 
     <q-input
@@ -21,6 +22,7 @@
       :rules="[
         val => val !== null && val !== '' || 'Please enter your password'        
       ]"
+      autocomplete="current-password"
     />  
 
     <div class="row">

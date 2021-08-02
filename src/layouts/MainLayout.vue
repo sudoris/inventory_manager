@@ -11,7 +11,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" content-class="bg-grey-1" bordered>
+    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" content-class="bg-grey-2" bordered>
       <q-list>
         <div class="drawer-item">
           <q-btn icon="favorite_border" outline color="accent" label="Welcome" />

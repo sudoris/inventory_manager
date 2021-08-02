@@ -1,12 +1,21 @@
 <template>
   <q-page>   
     <div class="split">
-      <div class="left q-pa-md">
+      <div class="left q-pa-md relative-position">
         <div class="left-header row">
           <q-space />
           <q-btn icon="add_circle_outline" outline color="accent" label="Intake" @click="showIntake = true"/>
         </div>
-        <Search class="q-mt-md" />
+        <Search :search="search" @input="(val) => search = val" class="q-mt-md" />
+        <Results :search="search" class="q-mt-md" />
+        <q-pagination
+          class="pagination"
+          v-model="currentPage"
+          :max="5"
+          boundary-links
+          direction-links
+          color="teal"
+        />    
       </div>
       <div class="right q-pa-md row">
         Item Details
@@ -37,15 +46,19 @@
 
 <script>
 import Search from '../components/search/Search.vue'
+import Results from '../components/search/Results.vue'
 
 export default {
   name: 'PageInventory',
   components: {
-    Search
+    Search,
+    Results
   },
   data() {
     return {
-      showIntake: false
+      showIntake: false,
+      search: '',
+      currentPage: 1
     }
   }
 }
@@ -59,7 +72,7 @@ export default {
 }
 
 .left {
-  background-color: lightpink;
+  background-color: white;
   width: 50%;
   border-right: 2px dashed green;
 }
@@ -72,5 +85,12 @@ export default {
 .intake-card {
   min-width: 80%;
   height: 80%;
+}
+
+.pagination {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%)
 }
 </style>
