@@ -6,19 +6,29 @@
           <q-space />
           <q-btn icon="add_circle_outline" outline color="accent" label="Intake" @click="showIntake = true"/>
         </div>
-        <Search :search="search" @input="(val) => search = val" class="q-mt-md" />
-        <Results :search="search" class="q-mt-md" />
-        <q-pagination
+        <Search v-model="search" class="q-mt-md" />
+        <Results :search="search" :results="data" class="q-mt-md" />
+        <!-- <q-pagination
           class="pagination"
           v-model="currentPage"
           :max="5"
           boundary-links
           direction-links
           color="teal"
-        />    
+        />     -->
       </div>
-      <div class="right q-pa-md row">
-        Item Details
+      <div class="right q-pa-md">
+        <div class="left-header row">
+          <q-space />
+          <q-btn icon="edit" outline color="accent" label="Edit"/>
+        </div>
+        <p>Name: Screw</p>         
+        <p>Category: Components</p> 
+        <p>Location: Chicago</p> 
+        <p>Quantity: 12</p> 
+        <p>Unit: boxes</p>         
+        <p>Category: Components</p> 
+        <img class="product-image" src="../assets/screw.jpg" alt="Image of a screw">
       </div>      
     </div>      
 
@@ -33,7 +43,7 @@
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.
+          Add an item
         </q-card-section>
 
         <q-card-actions align="right">
@@ -45,21 +55,33 @@
 </template>
 
 <script>
-import Search from '../components/search/Search.vue'
-import Results from '../components/search/Results.vue'
+import Search from '../components/inventory/Search.vue'
+import Results from '../components/inventory/Results.vue'
+import mockData from './mockData.js'
 
 export default {
   name: 'PageInventory',
+
   components: {
     Search,
     Results
   },
+
   data() {
     return {
       showIntake: false,
       search: '',
-      currentPage: 1
+      currentPage: 1,
+      data: null      
     }
+  },
+
+  created() {
+    this.data = mockData
+  },
+
+  methods: {
+    
   }
 }
 </script>
@@ -78,7 +100,7 @@ export default {
 }
 
 .right {
-  background-color: lightgray;
+  background-color: rgb(246, 246, 246);
   width: 50%;
 }
 
@@ -92,5 +114,9 @@ export default {
   left: 50%;
   bottom: 16px;
   transform: translateX(-50%)
+}
+
+.product-image {
+  width: 250px;
 }
 </style>

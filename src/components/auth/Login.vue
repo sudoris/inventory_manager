@@ -52,6 +52,9 @@ export default {
           password
         })
           .then(res => {
+            if (res === false) {
+              throw new Error('login failed')
+            }
             this.$q.notify({
               color: 'green-4',
               textColor: 'white',
@@ -63,6 +66,14 @@ export default {
             console.log(this.$route.query.from || '/')
             this.$router.replace(this.$route.query.from || '/')
           })
+          .catch(() => {
+            this.$q.notify({
+              color: 'negative',
+              position: 'top',
+              message: 'Login failed',
+              icon: 'report_problem'
+            })
+          })   
       } else {
         console.log('missing required params')         
       }      
