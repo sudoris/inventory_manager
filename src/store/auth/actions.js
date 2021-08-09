@@ -11,11 +11,11 @@ export function register({commit}, {username, password}) {
         password
     }  
   })
-    .then(res => {
+    .then(res => {      
       return res
     })
-    .catch(err => {
-      return(err)
+    .catch(err => {      
+      throw new Error(err)
     })
 }
 
@@ -42,7 +42,7 @@ export function login({commit}, {username, password}) {
       commit('setAuth', auth)
     })
     .catch(err => {
-      return 'error'
+      throw new Error(err)
     })
 }
 

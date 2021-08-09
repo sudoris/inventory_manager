@@ -1,5 +1,6 @@
 export default function () {
   return {
-    searchResults: null
+    searchResults: null,
+    currentItem: null
   }
 }

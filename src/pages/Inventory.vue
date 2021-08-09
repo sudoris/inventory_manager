@@ -7,7 +7,7 @@
           <q-btn icon="add_circle_outline" outline color="accent" label="Intake" @click="showIntake = true"/>
         </div>
         <Search v-model="search" class="q-mt-md" />
-        <Results :search="search" :results="data" class="q-mt-md" />
+        <Results :search="search" class="q-mt-md" />
         <!-- <q-pagination
           class="pagination"
           v-model="currentPage"
@@ -18,38 +18,32 @@
         />     -->
       </div>
       <div class="right q-pa-md">
-        <div class="left-header row">
+        <!-- <div class="left-header row">
           <q-space />
-          <q-btn icon="edit" outline color="accent" label="Edit"/>
-        </div>
-        <p>Name: Screw</p>         
-        <p>Category: Components</p> 
-        <p>Location: Chicago</p> 
-        <p>Quantity: 12</p> 
-        <p>Unit: boxes</p>         
-        <p>Category: Components</p> 
-        <img class="product-image" src="../assets/screw.jpg" alt="Image of a screw">
+          <q-btn 
+            :icon="edit ? 'edit' : 'save'" 
+            outline 
+            color="accent" 
+            :label="edit ? 'Edit' : 'Save'"
+            @click="edit = !edit"
+          />
+          <q-btn class="q-ml-xs" flat color="red" icon="delete" />
+        </div> -->
+        
+        <!-- {{currentItem}} -->
+        <div v-if="currentItem">
+          <ItemDetails :currentItem="currentItem" :edit="edit" />    
+        </div>                  
+        <!-- <img class="product-image" src="../assets/screw.jpg" alt="Image of a screw"> -->
       </div>      
     </div>      
 
     <q-dialog 
       v-model="showIntake"
       transition-show="jump-right"
-      transition-hide="jump-left"
+      transition-hide="jump-left"      
     >
-      <q-card class="intake-card">
-        <q-card-section>
-          <div class="text-h6">Intake</div>
-        </q-card-section>
-
-        <q-card-section class="q-pt-none">
-          Add an item
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn flat label="Complete" color="primary" v-close-popup />
-        </q-card-actions>
-      </q-card>
+      <AddItem @close-instake="showIntake = false" />      
     </q-dialog>
   </q-page>
 </template>
@@ -57,6 +51,9 @@
 <script>
 import Search from '../components/inventory/Search.vue'
 import Results from '../components/inventory/Results.vue'
+import ItemDetails from '../components/inventory/ItemDetails.vue'
+import AddItem from '../components/inventory/AddItem.vue'
+
 import mockData from './mockData.js'
 
 export default {
@@ -64,20 +61,28 @@ export default {
 
   components: {
     Search,
-    Results
+    Results,
+    ItemDetails,
+    AddItem
   },
 
   data() {
     return {
       showIntake: false,
       search: '',
-      currentPage: 1,
-      data: null      
+      data: null,
+      edit: false      
     }
   },
 
   created() {
     this.data = mockData
+  },
+
+  computed: {
+    currentItem() {      
+      return this.$store.state.inventory.currentItem
+    }
   },
 
   methods: {
@@ -100,13 +105,9 @@ export default {
 }
 
 .right {
-  background-color: rgb(246, 246, 246);
+  /* background-color: rgb(246, 246, 246); */
+  background-color: white;
   width: 50%;
-}
-
-.intake-card {
-  min-width: 80%;
-  height: 80%;
 }
 
 .pagination {

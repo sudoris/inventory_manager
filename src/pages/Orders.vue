@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex">  
-    Hello Orders Page
+    This page is under construction
   </q-page>
 </template>
 
