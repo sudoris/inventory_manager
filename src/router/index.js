@@ -27,9 +27,7 @@ export default function ({ store }) {
   })
 
   Router.beforeEach((to, from, next) => {  
-    // console.log(to, from)  
     if (to.path !== '/login' && !store.state.auth.auth) {
-      // alert('Please login first')
       next({ path: '/login' })
     } else {
       next()

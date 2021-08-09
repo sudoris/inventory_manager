@@ -1,7 +1,45 @@
 import { api } from 'boot/axios'
+// import 'form-data'
 
-export async function addItem({}, item) {
+
+export function deleteItem({}, item) {
   const jwt = localStorage.getItem('inventory-manager-jwt')
+
+  const url = `/api/product?id=${item.productIdentifier.id}${getCategories()}${getTags()}&origin=${formatSpace(item.origin)}`
+
+  function formatSpace(str) {
+    return str.replace(' ', '+')
+  }
+
+  function getCategories() {
+    let str = ''
+    for (const category of item.categories) {
+      str = str + `&categories=${formatSpace(category)}`
+    }
+    return str
+  }
+
+  function getTags() {
+    let str = ''
+    for (const tag of item.tags) {
+      str = str + `&tags=${formatSpace(tag)}`
+    }
+    return str
+  }
+
+  return api.delete(url, 
+    {      
+      headers: {
+        'Authorization': `Bearer ${jwt}`
+      }
+    }   
+  )
+}
+
+export function addItem({}, item) {
+  const jwt = localStorage.getItem('inventory-manager-jwt')  
+
+  // const form = new FormData();  
 
   const words = item.name.split(' ')
   const tags = []
@@ -18,7 +56,7 @@ export async function addItem({}, item) {
   }
  
   const payload = {
-    productIdentifier: { id }, 
+    productIdentifier: { id: parseInt(id) }, 
     name: item.name,
     categories: [item.category],
     tags: tags,
@@ -29,7 +67,6 @@ export async function addItem({}, item) {
     unit: item.unit,
     localProductFamily: {}        
   }
-  console.log(payload)
 
   return api.post('/api/product', 
     payload,
@@ -45,7 +82,6 @@ export async function search({commit}, {tag, category, origin}) {
   const results = []
 
   const jwt = localStorage.getItem('inventory-manager-jwt')
-  // console.log(tag)
 
   if (tag) {
     const tagRes = await api.get('/api/product/search', {
@@ -57,17 +93,18 @@ export async function search({commit}, {tag, category, origin}) {
       }
     })
 
-    // console.log(tagRes)
+    // console.log(tagRes, 'tag')
 
     if (tagRes.data && tagRes.data.products) {
       for (const product of tagRes.data.products) {
+        if (!product.productIdentifier) continue
+
         results.push(product)
       }
     }      
   }
 
   if (category) {
-    // console.log('category', category)
     const tagRes = await api.get('/api/product/search', {
       headers: {
         'Authorization': `Bearer ${jwt}`
@@ -81,7 +118,7 @@ export async function search({commit}, {tag, category, origin}) {
 
     if (tagRes.data && tagRes.data.products) {
       for (const product of tagRes.data.products) {
-        const duplicate = results.find(item => item.productIdentifier.id === product.id)
+        const duplicate = results.find(item => item.productIdentifier && item.productIdentifier.id === product.id)
         if (!duplicate) results.push(product)        
       }
     }      
@@ -101,7 +138,7 @@ export async function search({commit}, {tag, category, origin}) {
 
     if (tagRes.data && tagRes.data.products) {
       for (const product of tagRes.data.products) {
-        const duplicate = results.find(item => item.productIdentifier.id === product.id)
+        const duplicate = results.find(item => item.productIdentifier && item.productIdentifier.id === product.id)
         if (!duplicate) results.push(product)    
       }
     }      
@@ -116,26 +153,9 @@ export async function search({commit}, {tag, category, origin}) {
       filteredResults.push(product)
     }
   }
-  // console.log(results)
 
   commit('setSearchResults', filteredResults)
 }
 
-//   return api.post('/createUser', 
-//     {
-//       accountName: 'test'
-//     },
-//     {
-//       auth: {
-//         username,
-//         password
-//     }  
-//   })
-//     .then(res => {
-//       return res
-//     })
-//     .catch(err => {
-//       return(err)
-//     })
-// }
+
 

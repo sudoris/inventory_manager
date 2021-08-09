@@ -32,7 +32,7 @@
           label="Reset"
           @click="initForm"          
         />
-        <q-btn class="q-ml-xs" flat color="red" icon="delete" />
+        <q-btn class="q-ml-xs" flat color="red" icon="delete" @click="removeItem" />
       </div>
       
       <q-input
@@ -144,8 +144,28 @@ export default {
   },
 
   methods: {
+    removeItem() {
+      this.$store.dispatch('inventory/deleteItem', this.currentItem)
+        .then(res => {
+          this.$q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'cloud_done',
+            message: `Item removed`
+          })
+          this.$store.commit('inventory/resetSearchResults')
+        })
+        .catch(res => {
+          this.$q.notify({
+            color: 'negative',
+            position: 'top',
+            message: 'Failed to remove item',
+            icon: 'report_problem'
+          })
+        })
+    },
+
     updateItem() {
-      console.log('updating item!')
       this.$q.notify({
         color: 'green-4',
         textColor: 'white',

@@ -39,14 +39,7 @@ export default {
   components: {
     
   },
-  props: {
-    // search: {
-    //   type: String,
-    //   default() {
-    //     return ''
-    //   }
-    // }
-  },
+ 
   data() {
     return {
       searchInput: '',
@@ -65,17 +58,7 @@ export default {
       origin: ''      
     }
   },
-  // computed: {
-  //   searchInput: {
-  //     get() {
-  //       return this.search
-  //     },
-  //     set(newVal) {
-  //       // console.log('val changed', newVal)
-  //       this.$emit('input', newVal)
-  //     }
-  //   },
-  // },
+  
   methods: {
     handleSearch() {
       this.$store.dispatch('inventory/search', {

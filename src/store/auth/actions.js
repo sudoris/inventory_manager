@@ -20,7 +20,6 @@ export function register({commit}, {username, password}) {
 }
 
 export function login({commit}, {username, password}) {
-  // console.log('logging in with:', username, password)
   return api.post('/getToken', 
     {
       accountName: 'test'
@@ -32,7 +31,6 @@ export function login({commit}, {username, password}) {
     }  
   })
     .then(res => {
-      // console.log(res)
       if (!res.data) return false
 
       const auth = {

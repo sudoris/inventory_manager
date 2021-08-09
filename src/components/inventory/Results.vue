@@ -79,7 +79,7 @@ export default {
   },
   computed: {
     showText() {
-      if (!this.results) return `Showing 0 results for \"${this.search ? this.search : ''}\"`
+      if (!this.results || (this.results && this.results.length === 0)) return `Showing 0 results for \"${this.search ? this.search : ''}\"`
       else if (this.results) {
         const firstNum = 1 + ((this.currentPage-1)*this.showPerPage)
         let secondNum = 0 + (this.currentPage*this.showPerPage)

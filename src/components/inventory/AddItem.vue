@@ -12,7 +12,7 @@
         type="number"          
         v-model="newItem.id"               
         label="Item ID"  
-        hint="An ID will be auto-generated if left blank"         
+        hint="ID will be auto-generated if left blank"         
         class="q-mt-lg"    
       />  
 
@@ -36,7 +36,14 @@
           :rules="[ val => val.length > 0 || 'Please select a category' ]"
         />
         <!-- <q-select class="filter-item" clearable filled color="purple-12" v-model="location" :options="locations" label="Location" />   -->
-        <q-select class="wrapped-item" outlined color="purple-12" v-model="newItem.origin" :options="countries" label="Origin" />  
+        <q-select 
+          class="wrapped-item" 
+          outlined color="purple-12" 
+          v-model="newItem.origin" 
+          :options="countries" 
+          label="Origin" 
+          :rules="[ val => val.length > 0 || 'Required' ]"
+        />  
         <!-- <q-select class="filter-item" clearable filled color="purple-12" label="" />                  -->
         <q-input
           class="wrapped-item q-mt-sm"
@@ -114,7 +121,6 @@ export default {
     addItem() {
       this.$store.dispatch('inventory/addItem', this.newItem)
         .then(res => {
-          console.log(res)
           this.$q.notify({
             color: 'green-4',
             textColor: 'white',

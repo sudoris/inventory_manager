@@ -63,7 +63,6 @@ export default {
             })                                           
           })
           .then(res => {
-            console.log(this.$route.query.from || '/')
             this.$router.replace(this.$route.query.from || '/')
           })
           .catch(() => {

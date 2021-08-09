@@ -43,7 +43,7 @@
       transition-show="jump-right"
       transition-hide="jump-left"      
     >
-      <AddItem @close-instake="showIntake = false" />      
+      <AddItem @close-intake="showIntake = false" />      
     </q-dialog>
   </q-page>
 </template>

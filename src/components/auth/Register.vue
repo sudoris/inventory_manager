@@ -55,7 +55,6 @@ export default {
       if (username && password) {
         this.$store.dispatch('auth/register', {username, password}) 
           .then(res => {
-            console.log(res)
             this.$q.notify({
               color: 'green-4',
               textColor: 'white',
