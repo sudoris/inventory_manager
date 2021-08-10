@@ -98,7 +98,6 @@ export async function search({commit}, {tag, category, origin}) {
     if (tagRes.data && tagRes.data.products) {
       for (const product of tagRes.data.products) {
         if (!product.productIdentifier) continue
-
         results.push(product)
       }
     }      
@@ -114,11 +113,11 @@ export async function search({commit}, {tag, category, origin}) {
       }
     })
 
-    // console.log(tagRes, 'category')
+    console.log(tagRes, 'category')
 
     if (tagRes.data && tagRes.data.products) {
       for (const product of tagRes.data.products) {
-        const duplicate = results.find(item => item.productIdentifier && item.productIdentifier.id === product.id)
+        const duplicate = results.find(item => product.productIdentifier && product.productIdentifier.id === item.productIdentifier.id)
         if (!duplicate) results.push(product)        
       }
     }      
@@ -134,11 +133,11 @@ export async function search({commit}, {tag, category, origin}) {
       }
     })
 
-    // console.log(tagRes, 'origin')
+    console.log(tagRes, 'origin')
 
     if (tagRes.data && tagRes.data.products) {
       for (const product of tagRes.data.products) {
-        const duplicate = results.find(item => item.productIdentifier && item.productIdentifier.id === product.id)
+        const duplicate = results.find(item => product.productIdentifier && product.productIdentifier.id === item.productIdentifier.id)
         if (!duplicate) results.push(product)    
       }
     }      

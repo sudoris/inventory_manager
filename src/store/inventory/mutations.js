@@ -9,3 +9,7 @@ export function setCurrentItem (state, currentItem) {
 export function resetSearchResults (state) { 
   state.searchResults = null
 }
+
+export function resetCurrentItem (state) { 
+  state.currentItem = null
+}

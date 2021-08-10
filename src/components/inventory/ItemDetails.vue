@@ -137,6 +137,7 @@ export default {
   watch: {
     currentItem: {
       immediate: true,
+      // deep: true,
       handler() {
         this.initForm()
       } 
@@ -154,6 +155,7 @@ export default {
             message: `Item removed`
           })
           this.$store.commit('inventory/resetSearchResults')
+          this.$store.commit('inventory/resetCurrentItem') 
         })
         .catch(res => {
           this.$q.notify({
@@ -172,8 +174,7 @@ export default {
         icon: 'save',
         message: `Item updated`
       })  
-      this.$store.commit('inventory/resetSearchResults')
-
+      this.$store.commit('inventory/resetSearchResults')          
     },
     handleClick() {
       if (this.edit) {
@@ -182,6 +183,7 @@ export default {
       this.edit = !this.edit      
     },
     initForm() {
+      console.log(this.currentItem, 'current')
       this.changes = {
         name: this.currentItem.name,
         category: this.currentItem.categories[0],

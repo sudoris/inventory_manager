@@ -1,6 +1,6 @@
 <template>
-  <q-page class="flex">
-    Hello Index Page
+  <q-page class="construction-container">
+    <h5 class="construction-title">This page is currently under construction</h5>
   </q-page>
 </template>
 
@@ -9,3 +9,15 @@ export default {
   name: 'PageIndex'
 }
 </script>
+
+<style scoped>
+.construction-container {
+  display: flex;
+  justify-content: center;  
+  padding-top: 50px;
+}
+
+.construction-title {
+  color: orangered;
+}
+</style>

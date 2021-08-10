@@ -6,8 +6,10 @@
         <q-btn dense flat round icon="menu" @click="leftDrawerOpen = !leftDrawerOpen" />
 
         <q-toolbar-title>          
-          Our Project
+          Inventory Manager
         </q-toolbar-title>
+        <div>Hi, {{$store.state.auth.auth && $store.state.auth.auth.username}}</div>
+        <q-btn flat round dense icon="logout" class="q-ml-xs" @click="logout" />
       </q-toolbar>
     </q-header>
 
@@ -59,6 +61,12 @@ export default {
     return {
       leftDrawerOpen: false,
       sectionLinks: linksData
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.commit('auth/logout')
+      this.$router.push('login')
     }
   }
 }
